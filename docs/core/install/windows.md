@@ -188,6 +188,28 @@ Additionally, the [C# Dev Kit](https://marketplace.visualstudio.com/items?itemNa
 
 For instructions on installing .NET through Visual Studio Code, see [Getting Started with C# in VS Code](https://code.visualstudio.com/docs/csharp/get-started).
 
+## Optional DevConfig source preview
+
+To review a source-based setup alternative, use the [personal-fork DevConfig preview](https://github.com/crutkas/WindowsDeveloperConfig-oem/blob/crutkas-devconfig-fork-only-workloads/src/docs/windows-onboarding-preview.md). The focused `dotnet` workload enables Windows Developer Mode and installs PowerShell 7 and the .NET 10 SDK. It doesn't install Visual Studio Code or C# Dev Kit, and it doesn't run the full workstation setup. For the SDK, editor, and extension together, use the existing [Visual Studio Code configuration](#install-with-visual-studio-code) instead.
+
+> [!WARNING]
+> This personal-fork preview isn't a Microsoft-signed release or an official .NET installation recommendation. Before you run any commands, review the [implementation draft](https://github.com/crutkas/WindowsDeveloperConfig-oem/pull/2), source, package terms, and preview limitations. The scripts download software, change Windows settings, and request administrator approval. Test only in a disposable Windows development VM, not on a shared desktop.
+
+With Git, PowerShell, and WinGet available in that VM, clone the preview branch:
+
+```powershell
+git clone --branch crutkas-devconfig-fork-only-workloads --single-branch https://github.com/crutkas/WindowsDeveloperConfig-oem.git
+Set-Location WindowsDeveloperConfig-oem
+```
+
+After you review the checkout, run the local source dispatcher:
+
+```powershell
+.\src\Workloads\install-source.ps1 -Workload dotnet
+```
+
+The dispatcher reuses the local engine with its development-only `-AllowUnsigned` option. It doesn't change your execution policy. If your policy blocks unsigned scripts, use an approved development environment instead of bypassing the policy. Published short links and top-level signed workload copies don't run this preview branch.
+
 ## .NET installer
 
 The [download page](https://dotnet.microsoft.com/download/dotnet) for .NET provides Windows Installer executables.
